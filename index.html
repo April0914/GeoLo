@@ -30,6 +30,7 @@
 		<script type="text/javascript" src="js/jquery.ui.map.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.map.services.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.map.extensions.js"></script>
+		<script type="text/javascript" src="js/cordova.js"></script>
 		
 		
 		<script type="text/javascript">
@@ -129,7 +130,40 @@
 			
 		
         </script>
-	
+	<script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+    </script>
 
 </head>
 <body>
@@ -141,7 +175,7 @@
 <div data-role="header" data-position="fixed">
 <a href="#main_menu" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext ui-alt-icon" data-transition="pop">Menu</a>
          <h1>Geo-Lo </h1>
-       <a href="#popupInfo" data-rel="popup" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-info ui-btn-icon-notext ui-alt-icon" data-transition="pop">About</a>
+       <a href="#getroute" data-rel="popup" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-navigation  ui-alt-icon" data-transition="pop">Get Route</a>
     </div><!-- /header -->
 
 	<div role="main" class="ui-content" >
@@ -169,9 +203,8 @@
 
 	
 	<!----------------About Pop Up------------------------>
-		<div data-role="popup" id="popupInfo" class="ui-content" style="max-width:350px;">
-  		
-		<img src="images/iconnn.png">
+		<div data-role="popup" id="about_app" class="ui-content" data-theme="a" >
+  		<img src="images/iconnn.png">
 		<center>Geo-Lo 
 		<i style="font-size:9pt; text-align:center;">Version 1.0.0</i>
 		</center>
@@ -184,7 +217,7 @@
 	<!---------------Close About PopUp------------------------>
 	
 	<div data-role="footer" data-position="fixed" data-theme="b" >
-		<h4><a href="#getroute" data-transition="slideup" data-rel="popup" style="text-decoration:none; color:#fff; text-weight:bold; text-shadow: 0 1px 1px #000">Use Route</a></h4>
+		<h4><a href="#about_app" data-transition="slideup" data-rel="popup" style="text-decoration:none; color:#fff; text-weight:bold; text-shadow: 0 1px 1px #000"><span class="ui-btn-center ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-info ui-btn-icon-notext ui-alt-icon"></span></a></h4>
 	
 	</div>
 	<!-- /footer -->
